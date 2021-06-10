@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/startRouteFragment">
+
+    <action android:id="@+id/action_global_route_tracking"
+        app:destination="@+id/startRouteFragment"
+        app:launchSingleTop="true"/>
+
+    <fragment
+        android:id="@+id/startRouteFragment"
+        android:name="com.fmg.mygrainchainroute.view.StartRouteFragment"
+        android:label="StartRouteFragment" />
+    <fragment
+        android:id="@+id/myRouteFragment"
+        android:name="com.fmg.mygrainchainroute.view.MyRoutesFragment"
+        android:label="MyRouteFragment" />
+
+</navigation>

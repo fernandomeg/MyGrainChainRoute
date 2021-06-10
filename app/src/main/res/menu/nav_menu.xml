@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/startRouteFragment"
+        android:title="@string/start_route_title"
+        android:icon="@drawable/ic_navigation_24" />
+
+    <item android:id="@+id/myRouteFragment"
+        android:title="@string/my_routes_title"
+        android:icon="@drawable/ic_map_24"/>
+
+</menu>
