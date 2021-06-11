@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/startRouteFragment">
+    app:startDestination="@id/routeFragment">
 
     <action android:id="@+id/action_global_route_tracking"
         app:destination="@+id/startRouteFragment"
@@ -16,5 +16,13 @@
         android:id="@+id/myRouteFragment"
         android:name="com.fmg.mygrainchainroute.view.MyRoutesFragment"
         android:label="MyRouteFragment" />
+    <fragment
+        android:id="@+id/routeFragment"
+        android:name="com.fmg.mygrainchainroute.view.RouteFragment"
+        android:label="RouteFragment" >
+        <action
+            android:id="@+id/action_routeFragment_to_startRouteFragment"
+            app:destination="@id/startRouteFragment" />
+    </fragment>
 
 </navigation>

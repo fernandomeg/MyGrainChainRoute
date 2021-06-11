@@ -15,6 +15,9 @@
     <string name="start_route_title">Navegar</string>
     <string name="my_routes_title">Mis Rutas</string>
 
+    <string name="route_name_title">Nombre de la Ruta</string>
+    <string name="error_route_name">Debes darle un Nombre a tu Ruta</string>
+    <string name="route_navigate_title">¡Comienza tu Ruta!</string>
     <!--PERMISSIONS APP MESSAGE -->
     <string name="permissions_warning_message">Es Necesario Conceder Permisos Para Poder Continuar</string>
     <string name="permissions_warning_message2">Son Necesarios Los Permisos Para Poder Continuar</string>

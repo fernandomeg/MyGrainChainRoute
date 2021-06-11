@@ -4,10 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.fmg.mygrainchainroute.Converters
 import com.fmg.mygrainchainroute.source.room.dao.RouteDao
 import com.fmg.mygrainchainroute.source.room.entities.Route
 
 @Database(entities = [Route::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class MyGrainChainDatabase: RoomDatabase() {
 
     abstract fun routeDao(): RouteDao

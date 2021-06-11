@@ -23,17 +23,30 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent=".95" />
 
+
+        <ImageView
+            android:id="@+id/iv_map"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_v_right"
+            app:layout_constraintStart_toStartOf="@+id/guideline_v_left"
+            app:layout_constraintTop_toTopOf="@+id/guideline_header" />
+
         <TextView
             android:id="@+id/tv_route"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mis Rutas"
             android:textAlignment="center"
             android:textColor="@color/colorBlack"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline_footer"
             app:layout_constraintEnd_toStartOf="@+id/guideline_v_right"
-            app:layout_constraintStart_toStartOf="@+id/guideline_v_left" />
+            app:layout_constraintStart_toStartOf="@+id/guideline_v_left"
+            app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_v_left"

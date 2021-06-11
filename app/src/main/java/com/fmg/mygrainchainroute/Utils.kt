@@ -2,7 +2,9 @@ package com.fmg.mygrainchainroute
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Location
 import androidx.room.TypeConverter
+import com.fmg.mygrainchainroute.services.Polyline
 import java.io.ByteArrayOutputStream
 import java.time.LocalDate
 import java.util.concurrent.TimeUnit
@@ -27,6 +29,25 @@ class Utils {
     @TypeConverter
     fun convertByteArrayToBitmap(bytes:ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(bytes, 0,bytes.size)
+    }
+
+    fun calculatePolyline(polyline: Polyline):Float{
+        var distance =0f
+        for(i in 0..polyline.size-2){
+            val pos1 = polyline[i]
+            val pos2 = polyline[i+1]
+
+            val result = FloatArray(1)
+            Location.distanceBetween(
+                pos1.latitude,
+                pos1.longitude,
+                pos2.latitude,
+                pos2.longitude,
+                result
+            )
+            distance += result[0]
+        }
+        return distance
     }
 
     fun getFormattedStopWatchTime(ms:Long, includeMillis:Boolean= false):String{

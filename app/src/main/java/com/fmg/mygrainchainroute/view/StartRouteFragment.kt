@@ -2,29 +2,30 @@ package com.fmg.mygrainchainroute.view
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.fmg.mygrainchainroute.AbstractActivity
-import com.fmg.mygrainchainroute.Constants
-import com.fmg.mygrainchainroute.R
-import com.fmg.mygrainchainroute.Utils
+import com.fmg.mygrainchainroute.*
 import com.fmg.mygrainchainroute.databinding.FragmentStartRouteBinding
 import com.fmg.mygrainchainroute.repository.RouteRepository
 import com.fmg.mygrainchainroute.services.Polyline
 import com.fmg.mygrainchainroute.services.RouteTrackingService
 import com.fmg.mygrainchainroute.source.MyGrainChainDatabase
+import com.fmg.mygrainchainroute.source.room.entities.Route
 import com.fmg.mygrainchainroute.view.customcontrols.ModalFragment
 import com.fmg.mygrainchainroute.viewmodel.RouteViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.*
+import java.util.*
+import kotlin.math.round
 
 /**
  * A simple [Fragment] subclass.
@@ -40,6 +41,13 @@ class StartRouteFragment : Fragment() {
     private var map: GoogleMap? = null
     private var currentTimeInMillis =0L
     private var utils = Utils()
+
+    private var isCurrentLocation: Boolean=true
+    private var isFinishLocation: Boolean=false
+    private lateinit var marketInitial :Marker
+    private lateinit var markerFinal :Marker
+
+    private var routeName :String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +72,6 @@ class StartRouteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mapView.onCreate(savedInstanceState)
-
         navController = Navigation.findNavController(view)
 
         binding.btnActionRoute.setOnClickListener {
@@ -99,6 +106,7 @@ class StartRouteFragment : Fragment() {
     }
 
     private fun showDialogFinishRoute(){
+        zoomToGetRoute()
         (requireActivity() as AbstractActivity).showDialog(false,
             true,
             "Finalizar Ruta",
@@ -107,6 +115,7 @@ class StartRouteFragment : Fragment() {
                 override fun onCancel() {
                     actionRoute()
                     binding.btnActionRoute.text = getString(R.string.stop_route)
+                    markerFinal.remove()
                 }
 
                 override fun onAccept() {
@@ -125,8 +134,23 @@ class StartRouteFragment : Fragment() {
         }//end for
     }
 
+    private fun addCurrentMarker(){
+        if(isCurrentLocation){
+            isCurrentLocation = false
+            marketInitial = map!!.addMarker(MarkerOptions().position(pathPoints.last().last()).title("Ubicación Actual"))
+        }
+    }
+
+    private fun addFinishLocationMarker(marker:Boolean){
+        if(marker){
+            markerFinal = map!!.addMarker(MarkerOptions().position(pathPoints.last().last()).title("Ubicación Final"))
+        }
+    }
+
+
     private fun moveZoomToCurrentPosition(){
         if(pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()){
+            addCurrentMarker()
             map?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     pathPoints.last().last(),
@@ -134,6 +158,47 @@ class StartRouteFragment : Fragment() {
                 )
             )
         }//end if
+    }
+
+    private fun zoomToGetRoute(){
+        val bounds = LatLngBounds.builder()
+        for(polyline in pathPoints){
+            for(position in polyline){
+                bounds.include(position)
+            }
+        }
+
+        map?.moveCamera(CameraUpdateFactory.newLatLngBounds(
+            bounds.build(),
+            binding.mapView.width,
+            binding.mapView.height,
+            (binding.mapView.height*0.05f).toInt()
+        )
+        )
+    }
+
+    private fun finishRouteAndSaveData(){
+        map?.snapshot { bmp ->
+            var distanceInMeters = 0
+            for(polyline in pathPoints){
+                distanceInMeters += utils.calculatePolyline(polyline).toInt()
+            }
+
+            val dateTimeStmp =Calendar.getInstance().timeInMillis
+            val route = Route()
+
+            if(bmp!=null){
+                route.map = bmp
+            }
+            route.nameRoute = DataSingleton.routeName
+            route.timeStamp = dateTimeStmp
+            route.distanceInMeters = distanceInMeters
+            route.timeInMillis = currentTimeInMillis
+
+            DataSingleton.route = route
+            Toast.makeText(requireContext(), route.toString(),Toast.LENGTH_LONG).show()
+            routeViewModel.insertRoute(route)
+        }
     }
 
     private fun updateRoute(isStart:Boolean){
@@ -167,6 +232,7 @@ class StartRouteFragment : Fragment() {
     private fun actionRoute(){
         if(isRouteStart){
             sendCommandToService(Constants.ACTION_PAUSE_OR_RESUME_SERVICE)
+            addFinishLocationMarker(true)
             showDialogFinishRoute()
         }else{
             sendCommandToService(Constants.ACTION_START_OR_RESUME_SERVICE)
@@ -174,6 +240,8 @@ class StartRouteFragment : Fragment() {
     }
 
     private fun finishRoute(){
+        finishRouteAndSaveData()
+        addFinishLocationMarker(true)
         sendCommandToService(Constants.ACTION_STOP_OR_RESUME_SERVICE)
         //Send to Set Data Route
         navController.navigate(R.id.myRouteFragment)

@@ -9,19 +9,17 @@ import androidx.activity.addCallback
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.fmg.mygrainchainroute.DataSingleton
-import com.fmg.mygrainchainroute.databinding.FragmentMyRoutesBinding
-import com.fmg.mygrainchainroute.source.room.entities.Route
-import java.text.SimpleDateFormat
-import java.util.*
+import com.fmg.mygrainchainroute.R
+import com.fmg.mygrainchainroute.databinding.FragmentRouteBinding
 
 /**
  * A simple [Fragment] subclass.
  */
-class MyRoutesFragment : Fragment() {
+class RouteFragment : Fragment() {
 
-
-    private lateinit var binding : FragmentMyRoutesBinding
+    private lateinit var binding : FragmentRouteBinding
     private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +31,7 @@ class MyRoutesFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        binding = FragmentMyRoutesBinding.inflate(inflater,container,false)
+        binding = FragmentRouteBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -42,19 +40,24 @@ class MyRoutesFragment : Fragment() {
 
         navController = Navigation.findNavController(view)
 
-
-        if(DataSingleton.route!=null) {
-            val calendar = Calendar.getInstance().apply {
-                timeInMillis = DataSingleton.route.timeStamp
+        binding.btnNavigate.setOnClickListener{
+            if(validateRouteName()){
+                navController.navigate(R.id.startRouteFragment)
             }
+        }
+    }
 
-            val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    private fun validateRouteName():Boolean{
+        //Agregar ViewModel para Validacion de Lógica
+        val routeName = binding.tilRouteName.editText!!.text.toString()
 
-            binding.tvRoute.text =
-                "Distancia:  " + DataSingleton.route.distanceInMeters + "metros,  Fecha: " + dateFormat.format(
-                    calendar.time
-                )
-            binding.ivMap.setImageBitmap(DataSingleton.route.map)
+        return if (routeName.isNotEmpty()) {
+            DataSingleton.routeName = routeName
+            binding.tilRouteName.error = null
+            true
+        } else {
+            binding.tilRouteName.error = getString(R.string.error_route_name)
+            false
         }
     }
 
