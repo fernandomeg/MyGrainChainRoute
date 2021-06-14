@@ -1,10 +1,7 @@
-package com.fmg.mygrainchainroute.view
+package com.fmg.mygrainchainroute.view.myroutes
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View

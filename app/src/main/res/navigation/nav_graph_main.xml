@@ -10,11 +10,11 @@
 
     <fragment
         android:id="@+id/startRouteFragment"
-        android:name="com.fmg.mygrainchainroute.view.StartRouteFragment"
+        android:name="com.fmg.mygrainchainroute.view.startroute.StartRouteFragment"
         android:label="StartRouteFragment" />
     <fragment
         android:id="@+id/myRouteFragment"
-        android:name="com.fmg.mygrainchainroute.view.MyRoutesFragment"
+        android:name="com.fmg.mygrainchainroute.view.myroutes.MyRoutesFragment"
         android:label="MyRouteFragment" >
         <action
             android:id="@+id/action_myRouteFragment_to_myRouteDetailFragment"
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/routeFragment"
-        android:name="com.fmg.mygrainchainroute.view.RouteFragment"
+        android:name="com.fmg.mygrainchainroute.view.startroute.RouteFragment"
         android:label="RouteFragment" >
         <action
             android:id="@+id/action_routeFragment_to_startRouteFragment"
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/myRouteDetailFragment"
-        android:name="com.fmg.mygrainchainroute.view.MyRouteDetailFragment"
+        android:name="com.fmg.mygrainchainroute.view.myroutes.MyRouteDetailFragment"
         android:label="MyRouteDetailFragment" />
 
 </navigation>
