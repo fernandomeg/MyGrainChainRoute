@@ -4,6 +4,7 @@
 
     <string name="title_accept">Aceptar</string>
     <string name="title_cancel">Cancelar</string>
+    <string name="title_delete">Eliminar</string>
 
     <!--MODAL FRAGMENT -->
     <string name="gen_desc">Descripción Genérica</string>
@@ -18,6 +19,15 @@
     <string name="route_name_title">Nombre de la Ruta</string>
     <string name="error_route_name">Debes darle un Nombre a tu Ruta</string>
     <string name="route_navigate_title">¡Comienza tu Ruta!</string>
+
+
+    <string name="kilometers">Km</string>
+    <string name="distance">Distancia</string>
+    <string name="date">Fecha</string>
+    <string name="time">Tiempo</string>
+
+
+    <string name="delete_route_confirmation">¿Deseas Eliminar esta Ruta?</string>
     <!--PERMISSIONS APP MESSAGE -->
     <string name="permissions_warning_message">Es Necesario Conceder Permisos Para Poder Continuar</string>
     <string name="permissions_warning_message2">Son Necesarios Los Permisos Para Poder Continuar</string>

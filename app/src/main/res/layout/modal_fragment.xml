@@ -35,7 +35,7 @@
                 android:gravity="center"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 android:layout_marginTop="5dp"
                 tools:text="@string/gen_desc" />
 
@@ -60,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         android:text="@string/gen_desc"/>
 
                 </LinearLayout>
@@ -80,6 +80,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_cancel"
                     style="@style/ButtonStyleWhite"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
                     android:layout_margin="10dp"
                     android:text="@string/title_cancel"/>
@@ -88,6 +89,7 @@
                     android:id="@+id/btn_accept"
                     style="@style/ButtonStyleNormal"
                     android:layout_weight="1"
+                    android:layout_height="60dp"
                     android:layout_margin="10dp"
                     android:text="@string/title_accept"/>
 

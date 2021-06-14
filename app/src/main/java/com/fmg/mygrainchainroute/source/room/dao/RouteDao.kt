@@ -1,5 +1,6 @@
 package com.fmg.mygrainchainroute.source.room.dao
 
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.fmg.mygrainchainroute.source.room.entities.Route
 
@@ -19,5 +20,8 @@ interface RouteDao {
     fun getRouteList(): List<Route>
 
     @Query("SELECT * FROM route ORDER BY timeStamp DESC")
-    fun getRouteListByDate(): List<Route>
+    fun getRoutesListByDate(): List<Route>
+
+    @Query("SELECT * FROM route WHERE routeId = :routeId")
+    fun getRouteById(routeId:Int): Route
 }

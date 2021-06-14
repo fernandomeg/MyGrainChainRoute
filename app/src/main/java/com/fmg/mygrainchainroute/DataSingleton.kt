@@ -8,9 +8,4 @@ object DataSingleton {
     var routeName: String = ""
         get() = field                     // getter
         set(value) { field = value }      // setter
-
-    var route: Route = Route()
-        get() = field                     // getter
-        set(value) { field = value }
-
 }

@@ -15,7 +15,11 @@
     <fragment
         android:id="@+id/myRouteFragment"
         android:name="com.fmg.mygrainchainroute.view.MyRoutesFragment"
-        android:label="MyRouteFragment" />
+        android:label="MyRouteFragment" >
+        <action
+            android:id="@+id/action_myRouteFragment_to_myRouteDetailFragment"
+            app:destination="@id/myRouteDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/routeFragment"
         android:name="com.fmg.mygrainchainroute.view.RouteFragment"
@@ -24,5 +28,9 @@
             android:id="@+id/action_routeFragment_to_startRouteFragment"
             app:destination="@id/startRouteFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/myRouteDetailFragment"
+        android:name="com.fmg.mygrainchainroute.view.MyRouteDetailFragment"
+        android:label="MyRouteDetailFragment" />
 
 </navigation>

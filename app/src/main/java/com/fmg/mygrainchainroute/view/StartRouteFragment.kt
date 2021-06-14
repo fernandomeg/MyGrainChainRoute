@@ -40,7 +40,6 @@ class StartRouteFragment : Fragment() {
     private var pathPoints = mutableListOf<Polyline>()
     private var map: GoogleMap? = null
     private var currentTimeInMillis =0L
-    private var utils = Utils()
 
     private var isCurrentLocation: Boolean=true
     private var isFinishLocation: Boolean=false
@@ -181,7 +180,7 @@ class StartRouteFragment : Fragment() {
         map?.snapshot { bmp ->
             var distanceInMeters = 0
             for(polyline in pathPoints){
-                distanceInMeters += utils.calculatePolyline(polyline).toInt()
+                distanceInMeters += Utilities.calculatePolyline(polyline).toInt()
             }
 
             val dateTimeStmp =Calendar.getInstance().timeInMillis
@@ -194,9 +193,6 @@ class StartRouteFragment : Fragment() {
             route.timeStamp = dateTimeStmp
             route.distanceInMeters = distanceInMeters
             route.timeInMillis = currentTimeInMillis
-
-            DataSingleton.route = route
-            Toast.makeText(requireContext(), route.toString(),Toast.LENGTH_LONG).show()
             routeViewModel.insertRoute(route)
         }
     }
@@ -223,7 +219,7 @@ class StartRouteFragment : Fragment() {
 
         RouteTrackingService.timeInRouteInMillis.observe(viewLifecycleOwner, Observer {
             currentTimeInMillis = it
-            val formattedTime = utils.getFormattedStopWatchTime(currentTimeInMillis, true)
+            val formattedTime = Utilities.getFormattedStopWatchTime(currentTimeInMillis, true)
             binding.tvTimer.text = formattedTime
         })
 
@@ -244,7 +240,14 @@ class StartRouteFragment : Fragment() {
         addFinishLocationMarker(true)
         sendCommandToService(Constants.ACTION_STOP_OR_RESUME_SERVICE)
         //Send to Set Data Route
-        navController.navigate(R.id.myRouteFragment)
+        (requireActivity() as AbstractActivity).showDialog(false,false,"Ruta Guardada",
+            "La Ruta ha Sido Guardada Exitosamente", object : ModalFragment.CommonDialogFragmentCallBackWithCancel {
+                override fun onCancel() {/*No implementation*/}
+
+                override fun onAccept() {
+                    navController.navigate(R.id.myRouteFragment)
+                }
+            })
     }
 
     override fun onResume() {

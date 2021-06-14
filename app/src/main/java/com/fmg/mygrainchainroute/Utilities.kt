@@ -1,35 +1,27 @@
 package com.fmg.mygrainchainroute
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.location.Location
-import androidx.room.TypeConverter
 import com.fmg.mygrainchainroute.services.Polyline
-import java.io.ByteArrayOutputStream
-import java.time.LocalDate
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-class Utils {
 
-    fun getCurrentDay(): LocalDate? {
-        return LocalDate.now()
+object Utilities {
+
+    fun convertTimeStampInDate(timeStamp:Long):String{
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = timeStamp
+        }
+
+        return dateFormat.format(calendar.time)
     }
 
-    fun getDay(date:String):LocalDate?{
-        return LocalDate.parse(date)
+    fun convertMetersInKilometers(meters:Int): Float{
+        return String.format("%.3f", (meters.toFloat()/1000F)).toFloat()
     }
 
-    @TypeConverter
-    fun convertBitmapToByteArray(bitmap: Bitmap): ByteArray{
-        val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream)
-        return outputStream.toByteArray()
-    }
-
-    @TypeConverter
-    fun convertByteArrayToBitmap(bytes:ByteArray): Bitmap {
-        return BitmapFactory.decodeByteArray(bytes, 0,bytes.size)
-    }
 
     fun calculatePolyline(polyline: Polyline):Float{
         var distance =0f
