@@ -148,7 +148,7 @@ class RouteTrackingService: LifecycleService() {
     private fun finishService(){
         finishService = true
         isFirstStart = true
-        postInitialValues()
+        //postInitialValues()
         stopForeground(true)
         stopSelf()
     }
