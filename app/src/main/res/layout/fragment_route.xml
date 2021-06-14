@@ -35,6 +35,11 @@
             app:layout_constraintStart_toStartOf="@+id/guideline_v_left"
             app:layout_constraintTop_toTopOf="@+id/guideline_header">
 
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/logo"/>
+
             <TextView
                 android:id="@+id/tv_route_form_title"
                 android:layout_width="match_parent"
