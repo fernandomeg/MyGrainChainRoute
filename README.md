@@ -8,15 +8,18 @@
 
 ![startroute](https://user-images.githubusercontent.com/57393785/121937647-846f7580-cd10-11eb-9f8d-90bab4bb46dd.png)
 ![start](https://user-images.githubusercontent.com/57393785/121939379-96eaae80-cd12-11eb-9f8b-23e6f35864bb.png)
-
+![startroutepng](https://user-images.githubusercontent.com/57393785/122055372-2d1fe280-cdae-11eb-95ad-65345d844d7c.png)
 
 * Navegar: El módulo de navegación solicitará al usuario que ingrese el nombre de la ruta que va a iniciar, posteriormente se habilitará el mapa con las opciones de navegación para que pueda iniciar su trayecto e ir haciendo un seguimiento en tiempo real. 
 
 ![list](https://user-images.githubusercontent.com/57393785/121961902-9d3a5400-cd2d-11eb-840c-cdd2d7953e7e.png)
+![routespng](https://user-images.githubusercontent.com/57393785/122055573-622c3500-cdae-11eb-906c-fba7192ab551.png)
 
 * Mis Rutas: Este módulo mostrará el listado de todas las rutas navegadas con una previsualización de la información de la misma.
 
 ![detail](https://user-images.githubusercontent.com/57393785/121961887-97447300-cd2d-11eb-9e6e-b7b801640725.png)
+![cdmxpng](https://user-images.githubusercontent.com/57393785/122056122-eaaad580-cdae-11eb-8066-ee803113b587.png)
+![peripng](https://user-images.githubusercontent.com/57393785/122056130-eda5c600-cdae-11eb-9ca9-279369dec6ef.png)
 
 
 * Detalle de Rutas: Este módulo mostrará el Detalle completo de la ruta marcada con una visualización del *mapa del trayecto así como nombre de ruta, distancia y tiempo recorridos.*
