@@ -1,6 +1,5 @@
 package com.fmg.mygrainchainroute.services
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,12 +7,10 @@ import android.app.NotificationManager.IMPORTANCE_LOW
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import android.os.Looper
 import android.util.Log
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.MutableLiveData
@@ -148,11 +145,10 @@ class RouteTrackingService: LifecycleService() {
     private fun finishService(){
         finishService = true
         isFirstStart = true
-        //postInitialValues()
         stopForeground(true)
         stopSelf()
+        postInitialValues()
     }
-
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 

@@ -116,7 +116,7 @@ class StartRouteFragment : Fragment() {
                 }
 
                 override fun onAccept() {
-                    finishRoute()
+                    finishRouteAndSaveData()
                 }
             })
     }
@@ -191,6 +191,7 @@ class StartRouteFragment : Fragment() {
             route.distanceInMeters = distanceInMeters
             route.timeInMillis = currentTimeInMillis
             routeViewModel.insertRoute(route)
+            finishRoute()
         }
     }
 
@@ -233,9 +234,8 @@ class StartRouteFragment : Fragment() {
     }
 
     private fun finishRoute(){
-        finishRouteAndSaveData()
-        addFinishLocationMarker(true)
         sendCommandToService(Constants.ACTION_STOP_OR_RESUME_SERVICE)
+        addFinishLocationMarker(true)
         //Send to Set Data Route
         (requireActivity() as AbstractActivity).showDialog(false,false,"Ruta Guardada",
             "La Ruta ha Sido Guardada Exitosamente", object : ModalFragment.CommonDialogFragmentCallBackWithCancel {
